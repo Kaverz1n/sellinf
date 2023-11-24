@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>SELLINF</title>
+</head>
+<body>
+<header>
+    <img src="{% static 'images/sellinf.png' %}" alt="" height="110px" id="logo_image">
+</header>
+<div id="wrapper">
+    <div class="index_inf">
+        <div>
+            <img src="{% static 'images/chain.png' %}" alt="" height="700px">
+        </div>
+        <div>
+            <h1>SINGLE PLATFORM FOR ACCESS TO PAID AND FREE INFORMATION</h1>
+            <a href="{% static 'html/platform.html' %}">
+                <div class="index_inf_button">
+                    <h1 id="index_a_first_h1">TO TOUCH THE CLOUDS</h1>
+                    <h1 id="index_a_second_h1">ARE YOU READY?</h1>
+                </div>
+            </a>
+        </div>
+        <div>
+            <img src="{% static 'images/chain.png' %}" alt="" height="700px" style="transform: scale(-1, 1)">
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="footer">
+        <img src="../images/cloud.png" alt="" height="50px">
+        <p>COPYRIGHT© 2023 SELLINF. ALL RIGHTS RESERVED.</p>
+        <img src="../images/cloud.png" alt="" height="50px" style="transform: scale(-1, 1);">
+    </div>
+</footer>
+</body>
