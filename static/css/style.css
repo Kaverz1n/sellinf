@@ -1,0 +1,152 @@
+@font-face {
+    font-family: 'Brass Mono';
+    src: url('../fonts/BrassMono-Regular.ttf') format('TrueType');
+}
+
+body {
+    font-family: 'Brass Mono';
+}
+
+header {
+    background-color: #8DC8D0;
+    height: 150px;
+    border: 1px solid #8DC8D0;
+    border-radius: 0px 0px 50px 50px;
+    box-shadow: 3px 3px 3px 3px #59777A;
+}
+
+header img {
+    transition: 0.3s;
+}
+
+header img:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+#logo_image {
+    display: block;
+    margin: 0 auto; 
+    margin-top: 18px;
+}
+
+#wrapper {
+    margin: auto;
+    max-width: 1400px;
+}
+
+.index_inf {
+    display: flex;
+    justify-content: space-between;
+}
+
+.index_inf h1 {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 130%;
+    letter-spacing: 0px;
+    transition: 0.3s;
+}
+
+.index_inf h1:hover {
+    letter-spacing: 5px;
+    transition: 0.3s;
+}
+
+.index_inf a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.index_inf_button {
+    margin-top: 300px;
+    display: block;
+    font-size: 170%;
+    text-align: center;
+}
+
+#index_a_first_h1 {
+    opacity: 0;
+    letter-spacing: 20px;
+    transition: 0.3s;
+}
+
+#index_a_second_h1 {
+    margin-top: -59px;
+    opacity: 1;
+    letter-spacing: 0px;
+    transition: 0.3s;
+}
+
+.index_inf a:hover #index_a_first_h1 {
+    opacity: 1;
+    letter-spacing: 0px;
+    transition: 0.3s;
+}
+
+.index_inf a:hover #index_a_second_h1 {
+    opacity: 0;
+    letter-spacing: 20px;
+    transition: 0.3s;
+}
+
+footer {
+    background-color: #638286;
+    border: 1px solid #638286;
+    border-radius: 50px 50px 0px 0px;
+    height: 200px;
+    margin-top: 100px;
+}
+
+.footer {
+    margin: auto;
+    margin-top: 80px;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer p {
+    color: #ffffff;
+    font-size: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    max-width: 1400px;
+}
+
+#logo {
+    margin-top: 25px;
+}
+
+
+
+.main_footer {
+    margin: auto;
+    margin-top: 80px;
+    max-width: 950px;
+    display: flex;
+    justify-content: space-between; 
+}
+
+.main_footer ul {
+    display:inline-block;
+    margin:0 auto;
+}
+
+.main_footer a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.main_footer p {
+    color: #ffffff;
+    font-size: 100%;
+}
+
+.ul-container {
+    display: block;
+}
