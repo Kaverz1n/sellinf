@@ -1,12 +1,6 @@
+{% extends 'content/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>SELLINF</title>
-</head>
-<body>
+{% block content %}
 <header>
     <img src="{% static 'images/sellinf.png' %}" alt="" height="110px" id="logo_image">
 </header>
@@ -17,9 +11,13 @@
         </div>
         <div>
             <h1>SINGLE PLATFORM FOR ACCESS TO PAID AND FREE INFORMATION</h1>
-            <a href="{% static 'html/platform.html' %}">
+            <a href="{% url 'users:registration' %}">
                 <div class="index_inf_button">
-                    <h1 id="index_a_first_h1">TO TOUCH THE CLOUDS</h1>
+                     <div class="tap-container">
+                        <h1 id="tap">TAP</h1>
+                        <img src="{% static 'images/line.png' %}" alt="" id="index_line">
+                     </div>
+                    <h1 id="index_a_first_h1">TOUCH THE CLOUDS</h1>
                     <h1 id="index_a_second_h1">ARE YOU READY?</h1>
                 </div>
             </a>
@@ -36,4 +34,4 @@
         <img src="{% static 'images/cloud.png' %}" alt="" height="50px" style="transform: scale(-1, 1);">
     </div>
 </footer>
-</body>
+{% endblock %}
