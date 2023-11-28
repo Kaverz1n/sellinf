@@ -5,12 +5,12 @@
     <img src="{% static 'images/sellinf.png' %}" alt="" height="110px" id="logo_image">
 </header>
 <div id="wrapper">
-    <form method="post" class="register_form">
+    <form method="post" class="user_form">
         <h1>REGISTRATION</h1>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">CREATE AN ACCOUNT</button>
-        <a href="">Do you have an account?</a>
+        <a href="{% url 'users:authorization' %}">Do you have an account?</a>
     </form>
 </div>
 <footer>
