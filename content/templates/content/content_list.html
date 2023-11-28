@@ -1,0 +1,85 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+{% include 'content/includes/inc_header.html' %}
+<div id="wrapper">
+    <div class="sellinf_content_image">
+        <img src="{% static 'images/sellinf_blue.png' %}" alt="" height="75px" id="blue_sellinf">
+    </div>
+    <div class="sellinf_content_h1">
+        <h1>SINGLE PLATFORM FOR ACCESS TO PAID AND FREE INFORMATION</h1>
+    </div>
+    <form method="post" class="search_form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">SEARCH</button>
+    </form>
+    <hr>
+    {% for object in object_list %}
+    {% if object.type == 'free' %}
+    <div class="content">
+        <div class="content_block">
+            <div class="content_inf">
+                {% if object.title|length > 35 %}
+                <h1>{{ object.title|upper|slice:":35" }}...</h1>
+                {% else %}
+                <h1>{{ object.title|upper }}</h1>
+                {% endif %}
+                <h1 style="color: #419240;">FREE</h1>
+            </div>
+            <hr>
+            <div>
+                <p>symbols: {{ object.content|length }}</p>
+                <p>view: {{ object.views }}</p>
+            </div>
+        </div>
+        <div class="user_content_block">
+            <div class="user_content_inf">
+                    <span class="circle-image">
+                        <img src="{{ object.owner.image|mediapath }}">
+                    </span>
+                <div class="user_inf">
+                    <h2>{{ object.owner.nickname }}</h2>
+                    <p>Subscribers: {{ object.owner.subscribers }}</p>
+                    <p>Posts: 1</p>
+                </div>
+            </div>
+            <a href="">PROFILE</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="content">
+        <div class="content_block_premium">
+            <div class="content_inf">
+                {% if object.title|length > 35 %}
+                <h1>{{ object.title|upper|slice:":35" }}...</h1>
+                {% else %}
+                <h1>{{ object.title|upper }}</h1>
+                {% endif %}
+                <h1 style="color: #E4C208;">PREMIUM</h1>
+            </div>
+            <hr>
+            <div>
+                <h2>UPGRADE YOUR PROFILE TO LOOK THROW THE INFORMATION</h2>
+            </div>
+        </div>
+        <div class="user_content_block_premium">
+            <div class="user_content_inf">
+                    <span class="circle-image">
+                        <img src="{{ object.owner.image|mediapath }}">
+                    </span>
+                <div class="user_inf">
+                    <h2>{{ object.owner.nickname }}</h2>
+                    <p>Subscribers: {{ object.owner.subscribers }}</p>
+                    <p>Posts: 1</p>
+                </div>
+            </div>
+            <a href="">PROFILE</a>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% include 'content/includes/inc_footer.html' %}
+{% endblock %}
