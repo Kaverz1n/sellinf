@@ -65,3 +65,28 @@ class ConfirmationCodeForm(forms.Form):
             raise forms.ValidationError('Invalid code')
 
         return code
+
+
+class AuthorizationForm(forms.Form):
+    '''
+    Form to authorize user
+    '''
+    phone = forms.CharField(max_length=15, widget=TextInput(attrs={'placeholder': 'Enter your phone...'}))
+
+    def __init__(self, *args, **kwargs):
+        super(AuthorizationForm, self).__init__(*args, **kwargs)
+        self.fields['phone'].label = ''
+
+    def clean_phone(self, *args, **kwargs) -> str:
+        phone = self.cleaned_data['phone']
+
+        if not phone[1:].isdigit():
+            raise forms.ValidationError('Phone number must be a number')
+
+        if phone[:1] != '+':
+            raise forms.ValidationError('Phone number must start with +')
+
+        if not User.objects.filter(phone=phone).exists():
+            raise forms.ValidationError('User not found')
+
+        return phone
