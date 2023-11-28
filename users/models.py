@@ -27,7 +27,7 @@ class User(AbstractUser):
         super().save(*args, **kwargs)
 
         img = Image.open(self.image.path)
-        max_size = (125, 125)
+        max_size = (75, 75)
 
         # resize image if it is bigger than max_size
         if img.size != max_size:
@@ -43,7 +43,7 @@ class ConfirmationCode(models.Model):
     '''
     Confirm code model
     '''
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, verbose_name='user')
     code = models.IntegerField(unique=True, verbose_name='code')
 
     def str_code(self) -> str:
