@@ -157,6 +157,12 @@ footer {
 .sellinf_content_image {
     margin: auto;
     max-width: 250px;
+    transition: 0.3s;
+}
+
+.sellinf_content_image:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
 }
 
 .sellinf_content_h1 {
@@ -206,7 +212,7 @@ footer {
     text-decoration: underline;
 }
 
-.register_form {
+.user_form {
     max-width: 410px;
     margin: 0 auto;
     margin-top: 150px;
@@ -216,18 +222,18 @@ footer {
     margin-bottom: 200px;
 }
 
-.register_form h1 {
+.user_form h1 {
     text-align: center;
     letter-spacing: 0px;
     transition: 0.3s;
 }
 
-.register_form h1:hover {
+.user_form h1:hover {
     letter-spacing: 5px;
     transition: 0.3S;
 }
 
-.register_form input{
+.user_form input{
     font-family: 'Brass Mono';
     font-size: 200%;
     width: 384px;
@@ -243,7 +249,7 @@ footer {
     font-size: 120%;
 }
 
-.register_form button {
+.user_form button {
     margin-bottom: 20px;
     background-color: #ffffff;
     color: #8DC8D0;
@@ -256,12 +262,311 @@ footer {
     transition: 0.3s;
 }
 
-.register_form button:hover {
+.user_form button:hover {
     background-color: #8DC8D0;
     color: #ffffff;
     transition: 0.3s;
 }
 
-.register_form a {
+.user_form a {
     margin-left: 190px;
+}
+
+.content {
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.content_block {
+    width: 68%;
+    padding: 25px;
+    border: 5px solid #59777A;
+    border-radius: 25px;
+}
+
+.content_block div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.user_content_block {
+    border: 5px solid #59777A;
+    border-radius: 25px;
+    padding: 25px;
+}
+
+.user_content_inf {
+    display: flex;
+    justify-content: space-between;
+}
+
+.circle-image {
+    display: inline-block;
+    margin-left: -10px;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+}
+
+.circle-image img {
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+
+.user_inf {
+    margin-left: 10px;
+    margin-top: -12px;
+    margin-bottom: 10px;
+}
+
+.user_content_block a {
+    margin-left: 20px;
+    margin-top: 10px;
+    color: #000000;
+    text-decoration: none;
+    text-align: center;
+    font-size: 110%;
+    border: 3px solid #59777A;
+    border-radius: 15px;
+    width: 200%;
+    padding: 5px 50px;
+    transition: 0.3s;
+}
+
+.user_content_block a:hover{
+    background-color: #59777A;
+    color: #ffffff;
+    transition: 0.3s;
+}
+
+
+.content_block_premium {
+    width: 68%;
+    padding: 25px;
+    border: 5px solid #E4C208;
+    border-radius: 25px;
+}
+
+.content_block_premium div{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.user_content_block_premium {
+    border: 5px solid #E4C208;
+    border-radius: 25px;
+    padding: 25px;
+}
+
+
+.user_content_block_premium a {
+    margin-left: 20px;
+    margin-top: 10px;
+    color: #000000;
+    text-decoration: none;
+    text-align: center;
+    font-size: 110%;
+    border: 3px solid #E4C208;
+    border-radius: 15px;
+    width: 200%;
+    padding: 5px 50px;
+    transition: 0.3s;
+}
+
+.user_content_block_premium a:hover{
+    background-color: #E4C208;
+    color: #ffffff;
+    transition: 0.3s;
+}
+
+.about {
+    display: flex;
+    justify-content: space-between;
+}
+
+.about_h1 {
+    font-size: 300%;
+    margin-left: 5px;
+    letter-spacing: 0px;
+    transition: 0.4s;
+}
+
+.about_h1:hover {
+    letter-spacing: 100px;
+    transition: 0.4s;
+}
+
+.main_inf {
+    width: 40%;
+    border: 5px solid #59777A;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.main_inf p {
+    letter-spacing: 0px;
+    transition: 0.3s;
+}
+
+.main_inf p:hover {
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.another_inf {
+    width: 50%;
+}
+
+.image_inf {
+    border: 5px solid #59777A;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.upgrade_inf {
+    margin-top: 40px;
+    border: 5px solid #E4C208;
+    border-radius: 15px;
+    padding: 25px;
+    height: 430px;
+}
+
+.upgrade_inf h1 {
+    text-align: center;
+    letter-spacing: 0px;
+    transition: 0.3s;
+}
+
+.upgrade_inf h1:hover {
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.upgrade_inf p {
+    margin-bottom: 20px;
+    letter-spacing: 0px;
+    transition: 0.3s;
+}
+
+.upgrade_inf p:hover {
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.upgrade_inf a {
+    margin-left: 100px;
+    color: #000000;
+    text-decoration: none;
+    text-align: center;
+    font-size: 180%;
+    border: 3px solid #E4C208;
+    border-radius: 15px;
+    width: 200%;
+    padding: 5px 100px;
+    transition: 0.3s;
+}
+
+.upgrade_inf a:hover{
+    background-color: #E4C208;
+    color: #ffffff;
+    transition: 0.3s;
+}
+
+.upgrade {
+    width: 380px;
+    margin: 0 auto;
+}
+
+.upgrade h2 {
+    margin-top: 50px;
+    margin-bottom: -20px;
+    text-align: center;
+}
+
+.upgrade_hr {
+    margin-bottom: 50px;
+    background-color: #000000;
+    height: 2px;
+}
+
+.upgrade_list {
+    list-style-type: none;
+}
+
+
+.upgrade_list li {
+    display: flex;
+    margin-left: -55px;
+    margin-top: 25px;
+}
+
+.upgrade_buy_button {
+    margin-left: 200px;
+    border: 5px solid #E4C208;
+    border-radius: 15px;
+    padding: 15px 200px;
+    color: #000000;
+    text-decoration: none;
+    font-size: 150%;
+    transition: 0.3s;
+}
+
+.upgrade_buy_button:hover {
+    background-color: #E4C208;
+    color: #ffffff;
+    transition: 0.3s;
+}
+
+.buy_upgrade_content {
+    margin-top: 50px;
+    height: 110%;
+    border: 10px solid #E4C208;
+    height: 130%;
+    border-radius: 15px;
+    padding: 35px  55px;
+}
+
+.search_form {
+    display: flex;
+    justify-content: space-between;
+    border: 5px solid #59777A;
+    border-radius: 45px;
+    height: 50px;
+    padding: 5px 10px;
+}
+
+
+.search_form input {
+    margin-top: -10px;
+    font-family: 'Brass Mono';
+    font-size: 200%;
+    width: 850px;
+    padding: 5px;
+    border: 0px solid black;
+    border-radius: 15px;
+}
+
+
+.search_form button {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    color: #8DC8D0;
+    font-family: 'Brass Mono';
+    border: 2px solid #8DC8D0;
+    border-radius: 15px;
+    width: 200px;
+    height: 50px;
+    font-size: 150%;
+    transition: 0.3s;
+}
+
+.search_form button:hover {
+    background-color: #8DC8D0;
+    color: #ffffff;
+    transition: 0.3s;
 }
