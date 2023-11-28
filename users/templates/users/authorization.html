@@ -1,0 +1,22 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% block content %}
+<header>
+    <img src="{% static 'images/sellinf.png' %}" alt="" height="110px" id="logo_image">
+</header>
+<div id="wrapper">
+    <form method="post" class="user_form">
+        <h1>AUTHORIZATION</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">GO ON</button>
+    </form>
+</div>
+<footer>
+    <div class="footer">
+        <img src="{% static 'images/cloud.png' %}" alt="" height="50px">
+        <p>COPYRIGHT© 2023 SELLINF. ALL RIGHTS RESERVED.</p>
+        <img src="{% static 'images/cloud.png' %}" alt="" height="50px" style="transform: scale(-1, 1);">
+    </div>
+</footer>
+{% endblock %}
