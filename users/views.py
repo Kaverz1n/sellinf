@@ -1,14 +1,12 @@
-import random
-
 from django.contrib.auth import login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import generic
 
-from users.forms import UserRegisterForm, ConfirmationCodeForm
-from users.models import User, ConfirmationCode
-from users.tasks import send_confirmation_code
+from users.forms import UserRegisterForm, ConfirmationCodeForm, AuthorizationForm
+from users.models import User
+from users.services import code_generation
 
 
 class UserRegisterView(generic.CreateView):
@@ -25,15 +23,7 @@ class UserRegisterView(generic.CreateView):
             self.object.is_active = False
             self.object.save()
 
-            # create a confirmation code
-            code = int(''.join([str(random.randint(1, 9)) for _ in range(4)]))
-            try:
-                ConfirmationCode.objects.create(user=self.object, code=code)
-            except:
-                users_code = ConfirmationCode.objects.get(user=self.object)
-                users_code.code = code
-
-            send_confirmation_code.delay(self.object.phone)
+            code_generation(self.object)
 
         return super().form_valid(form)
 
@@ -76,7 +66,7 @@ class ConfirmationCodeView(generic.View):
 
             login(request, user)
 
-            return redirect('content:index')
+            return redirect(reverse('content:index'))
 
         return render(
             request,
@@ -87,3 +77,38 @@ class ConfirmationCodeView(generic.View):
             }
         )
 
+
+class AuthorizationView(generic.View):
+    '''
+    Authorize user by phone number
+    '''
+
+    def get(self, request, *args, **kwargs) -> HttpResponse:
+        form = AuthorizationForm()
+
+        return render(
+            request,
+            'users/authorization.html',
+            {
+                'title': 'Authorization',
+                'form': form,
+            }
+        )
+
+    def post(self, request, *args, **kwargs) -> HttpResponse:
+        form = AuthorizationForm(request.POST)
+
+        if form.is_valid():
+            self.object = User.objects.get(phone=form.cleaned_data['phone'])
+            code_generation(self.object)
+
+            return redirect(reverse('users:confirmation_account', kwargs={'user_id': self.object.id}))
+
+        return render(
+            request,
+            'users/authorization.html',
+            {
+                'title': 'Authorization',
+                'form': form,
+            }
+        )
