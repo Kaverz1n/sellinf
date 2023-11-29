@@ -1,0 +1,46 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% block content %}
+{% include 'content/includes/inc_header.html' %}
+<div id="wrapper">
+    <h1 class="about_h1">ABOUT</h1>
+    <div class="about">
+        <div class="main_inf">
+            <p>
+                <b>Sellinf</b> is an innovative platform designed to meet the diverse needs of content creators and
+                consumers
+                alike. We provide a unique space where talented authors can share their creativity, and users can enjoy
+                high-quality content.
+                <br><br>
+                Our mission is to make the process of creating, exchanging, and discovering content easy and satisfying.
+                On Sellinf, you'll find a wide range of both paid and free content, including articles, photos, videos,
+                and more. We embrace creativity and diversity, offering a platform where everyone can find something to
+                suit their taste.
+                <br><br>
+                With us, you can not only discover amazing creative works but also unleash your potential as a content
+                creator. Sellinf is more than just a platform; it's a community of people united by a shared love for
+                content.
+                <br><br>
+                Join our community today and embark on a journey of creativity, discovery, and connection. Sellinf is
+                more than just a platform; it's a vibrant ecosystem where imagination thrives and possibilities abound.
+                Welcome to a world where content finds its true value, and creativity knows no bounds!
+            </p>
+        </div>
+        <div class="another_inf">
+            <div class="image_inf">
+                <img src="{% static 'images/sellinf_logo.png' %}" alt="" width="400px">
+            </div>
+            <div class="upgrade_inf">
+                <h1>UPGRADE YOUR ACCOUNT</h1>
+                <p>
+                    Subscription provides a deeper dive into the platform. It allows you to explore a wider range of
+                    content, support creators, and become part of a community that values and endorses creative
+                    endeavors. Upgrade your account to reach the unfathomable clouds...
+                </p>
+                <a href="">UPGRADE</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'content/includes/inc_footer.html' %}
+{% endblock %}
