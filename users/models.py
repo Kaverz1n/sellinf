@@ -16,6 +16,7 @@ class User(AbstractUser):
     about = models.CharField(max_length=500, verbose_name='about', **NULLABLE)
     image = models.ImageField(upload_to='profile_images/', default='profile_images/default.png', verbose_name='image')
     is_upgraded = models.BooleanField(default=False, verbose_name='is_upgraded')
+    subscribers = models.IntegerField(default=0, verbose_name='subscribers')
 
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = []
@@ -27,7 +28,7 @@ class User(AbstractUser):
         super().save(*args, **kwargs)
 
         img = Image.open(self.image.path)
-        max_size = (75, 75)
+        max_size = (300, 300)
 
         # resize image if it is bigger than max_size
         if img.size != max_size:
