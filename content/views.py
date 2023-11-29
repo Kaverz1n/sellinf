@@ -73,7 +73,6 @@ class FoundContentListView(ContentListView):
             Q(content__icontains=search_query)
         ).order_by('-views', 'id')
 
-        print(queryset)
         return queryset
 
     def get_context_data(self, *args, **kwargs) -> dict:
