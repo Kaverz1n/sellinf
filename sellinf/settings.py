@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'content',
     'users',
+    'payment',
 ]
 
 MIDDLEWARE = [
@@ -142,6 +143,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # User settings
 
 AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = '/content/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/users/registration/'
 
 # Send SMS settings
 
@@ -159,3 +163,10 @@ CELERY_TASK_TIME_LIMIT = int(os.getenv('CELERY_TASK_TIME_LIMIT')) * 60
 CELERY_BROKER_URL = 'redis://localhost:6379'
 
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+# Stripe payment settings
+
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+PAYMENT_SUCCESS_URL = os.getenv('PAYMENT_SUCCESS_URL')
+PAYMENT_CANCEL_URL = os.getenv('PAYMENT_CANCEL_URL')
