@@ -66,7 +66,7 @@ class ConfirmationCodeView(generic.View):
 
             login(request, user)
 
-            return redirect(reverse('content:index'))
+            return redirect(reverse('content:content_list'))
 
         return render(
             request,
