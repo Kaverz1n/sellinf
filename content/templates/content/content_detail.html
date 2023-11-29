@@ -1,0 +1,27 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+{% include 'content/includes/inc_header.html' %}
+<div id="wrapper">
+    <div class="content_detail_content">
+        <h1 class="content_detail_title">{{ object.title|upper }}</h1>
+        <hr id="under_title_line">
+        <p>
+            {{ object.content }}
+        </p>
+        <hr>
+        <div class="content_detail_inf">
+            <div>
+                <h2>Type: {{ object.type }}</h2>
+                <h2>Author: {{ object.owner.nickname }}</h2>
+            </div>
+            <div>
+                <h2>Date: {{ object.updated_at }}</h2>
+                <h2>Views: {{ object.views }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'content/includes/inc_footer.html' %}
+{% endblock %}
