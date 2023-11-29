@@ -1,0 +1,49 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% block content %}
+{% include 'content/includes/inc_header.html' %}
+<div id="wrapper">
+    <div class="buy_upgrade_content">
+        <div class="upgrade">
+            <h2>UPGRADE YOUR</h2>
+            <img src="{% static 'images/gold_sellinf.png' %}" alt="" width="400px">
+        </div>
+        <hr class="upgrade_hr">
+        <div class="main_upgrade_inf">
+            <p>
+                A one-time subscription is a form of subscription in which a user pays only once to access a specific
+                service or content for a specific period of time. Unlike a recurring subscription, which requires
+                repeated payments at certain intervals, a one-time subscription provides access for a limited time after
+                a single payment.
+                A subscription provides access to paid premium text information. Upon successful payment, you get
+                instant access to this premium content. You will be able to view and use this information for an
+                unlimited period of time without having to pay again. This allows you to access exclusive and valuable
+                content that is not available to regular users.
+                Premium text information may include high quality articles, unique research, expert opinions and other
+                valuable information that provides you with additional knowledge and benefits in your chosen field. By
+                accessing such information, you can be sure that you are getting the most up-to-date and reliable
+                information that will help you succeed and stay ahead of the competition.
+                A one-time subscription to premium text information allows you to access valuable content for a single
+                payment. It is a convenient and effective form of getting exclusive information that can give you an
+                edge in your chosen field. Don't miss the opportunity to access premium content and expand your
+                knowledge and skills.
+            </p>
+        </div>
+        <ul class="upgrade_list">
+            <li><img src="{% static 'images/gold_cloud.png '%}" alt="" width="80px">
+                <h3>PAY ONLY ONCE FOR SELLINF SUBSCRIPTION</h3></li>
+            <li><img src="{% static 'images/gold_cloud.png '%}" alt="" width="80px">
+                <h3>UNLIMITED ACCESS TO VIEW PREMIUM CONTENT</h3></li>
+            <li><img src="{% static 'images/gold_cloud.png '%}" alt="" width="80px">
+                <h3>CREATE YOUR OWN CONTENT AND GET REWARDED</h3></li>
+            <li><img src="{% static 'images/gold_cloud.png '%}" alt="" width="80px">
+                <h3>PARTICIPATE IN CONTESTS FROM SELLINF</h3></li>
+        </ul>
+        <br>
+        <br>
+        <br>
+        <a href="{% url 'payment:checkout_session' %}" class="upgrade_buy_button">UPGRADE THE ACCOUNT</a>
+    </div>
+</div>
+{% include 'content/includes/inc_footer.html' %}
+{% endblock %}
