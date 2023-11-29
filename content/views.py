@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import QuerySet, Q
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -8,15 +9,21 @@ from content.forms import SearchForm
 from content.models import Content
 
 
-class IndexView(generic.TemplateView):
+class IndexView(UserPassesTestMixin, generic.TemplateView):
     '''
     Index page view
     '''
     template_name = 'content/index.html'
     extra_context = {'title': 'Sellinf'}
 
+    def test_func(self) -> bool:
+        return self.request.user.is_anonymous
 
-class ContentListView(generic.ListView):
+    def handle_no_permission(self) -> HttpResponse:
+        return redirect(reverse('content:content_list'))
+
+
+class ContentListView(LoginRequiredMixin, generic.ListView):
     '''
     Content list view
     '''
@@ -55,6 +62,7 @@ class FoundContentListView(ContentListView):
     '''
     Found content list view
     '''
+    paginate_by = 5
 
     def get_queryset(self, *args, **kwargs) -> QuerySet:
         search_query = self.kwargs.get('search_query')
@@ -63,8 +71,9 @@ class FoundContentListView(ContentListView):
             Q(is_published=True) &
             Q(title__icontains=search_query) |
             Q(content__icontains=search_query)
-        )
+        ).order_by('-views', 'id')
 
+        print(queryset)
         return queryset
 
     def get_context_data(self, *args, **kwargs) -> dict:
@@ -72,3 +81,45 @@ class FoundContentListView(ContentListView):
         context['form'] = SearchForm(self.request.GET)
 
         return context
+
+
+class ContentDetailView(LoginRequiredMixin, generic.DetailView):
+    '''
+    Content detail view
+    '''
+    model = Content
+
+    def get_object(self, queryset=None) -> Content:
+        self.object = super().get_object(queryset=queryset)
+        self.object.views += 1
+        self.object.save()
+
+        return self.object
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = self.object.title
+
+        return context
+
+
+class AboutTemplateView(LoginRequiredMixin, generic.TemplateView):
+    '''
+    About template view
+    '''
+    template_name = 'content/about.html'
+    extra_context = {'title': 'About'}
+
+
+class UpgradeTemplateView(LoginRequiredMixin, UserPassesTestMixin, generic.TemplateView):
+    '''
+    Upgrade template view
+    '''
+    template_name = 'content/upgrade.html'
+    extra_context = {'title': 'Upgrade'}
+
+    def test_func(self) -> bool:
+        return not self.request.user.is_upgraded
+
+    def handle_no_permission(self) -> HttpResponse:
+        return redirect(reverse('content:content_list'))
