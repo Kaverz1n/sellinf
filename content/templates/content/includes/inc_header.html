@@ -7,10 +7,11 @@
             <a href="{% url 'content:about' %}"><img src="{% static 'images/about.png' %}" alt="" height="120px"></a>
         </ul>
         <a href="{% url 'content:content_list' %}"><img src="{% static 'images/sellinf_logo.png' %}" alt=""
-                                                         height="110px" id="logo"></a>
+                                                        height="110px" id="logo"></a>
         <ul>
-            <a href=""><img src="{% static 'images/profile.png' %}" alt="" height="120px"></a>
-            <a href="{% url 'content:upgrade' %}"><img src="{% static 'images/upgrade.png' %}" alt=""
+            <a href="{% url 'users:user_detail' user.pk%}"><img src="{% static 'images/profile.png' %}" alt=""
+                                                                height="120px"></a>
+            <a href="{% url 'users:logout' %}"><img src="{% static 'images/exit.png' %}" alt=""
                                                        height="120px"></a>
         </ul>
     </div>
