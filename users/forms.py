@@ -38,7 +38,7 @@ class UserRegisterForm(UserCreationForm):
         phone = self.cleaned_data.get('phone')
 
         if not phone[1:].isdigit():
-            raise forms.ValidationError('Phone number must be a number')
+            raise forms.ValidationError('Phone number must be digital')
 
         if phone[:1] != '+':
             raise forms.ValidationError('Phone number must start with +')
@@ -81,7 +81,7 @@ class AuthorizationForm(forms.Form):
         phone = self.cleaned_data['phone']
 
         if not phone[1:].isdigit():
-            raise forms.ValidationError('Phone number must be a number')
+            raise forms.ValidationError('Phone number must be digital')
 
         if phone[:1] != '+':
             raise forms.ValidationError('Phone number must start with +')
@@ -90,3 +90,40 @@ class AuthorizationForm(forms.Form):
             raise forms.ValidationError('User not found')
 
         return phone
+
+
+class UserUpdateForm(forms.ModelForm):
+    '''
+    Form to update user
+    '''
+
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['nickname'].label = ''
+        self.fields['nickname'].widget.attrs['placeholder'] = 'Enter your nickname...'
+        self.fields['about'].label = ''
+        self.fields['about'].widget.attrs['placeholder'] = 'Enter about yourself...'
+        self.fields['image'].label = ''
+
+    class Meta:
+        model = User
+        fields = ('nickname', 'about', 'image')
+
+
+class UserDeleteAccountForm(forms.Form):
+    '''
+    Form to delete user
+    '''
+    confirm_delete = forms.CharField(max_length=30, widget=TextInput(attrs={'placeholder': 'Are you sure...?'}))
+
+    def __init__(self, *args, **kwargs):
+        super(UserDeleteAccountForm, self).__init__(*args, **kwargs)
+        self.fields['confirm_delete'].label = ''
+
+    def clean_confirm_delete(self, *args, **kwargs) -> str:
+        confirm_delete = self.cleaned_data['confirm_delete']
+
+        if confirm_delete != 'I want to delete my account!':
+            raise forms.ValidationError('That\' not right!')
+
+        return confirm_delete
