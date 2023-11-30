@@ -14,7 +14,7 @@
         <div class="content_detail_inf">
             <div>
                 <h2>Type: {{ object.type }}</h2>
-                <h2>Author: {{ object.owner.nickname }}</h2>
+                <a href="{% url 'users:user_detail' object.owner.pk %}"><h2>Author: {{ object.owner.nickname }}</h2></a>
             </div>
             <div>
                 <h2>Date: {{ object.updated_at }}</h2>
