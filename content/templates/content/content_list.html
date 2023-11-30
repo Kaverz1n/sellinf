@@ -60,7 +60,7 @@
                     <p>Posts: {{ object.owner.content_set.count }}</p>
                 </div>
             </div>
-            <a href="">PROFILE</a>
+            <a href="{% url 'users:user_detail' object.owner.pk %}">PROFILE</a>
         </div>
     </div>
     {% else %}
@@ -68,26 +68,27 @@
         <div class="content_block_premium">
             {% if user.is_upgraded %}
             <a href="{% url 'content:content_detail' object.pk %}">
-            {% else %}
-            <a href="{% url 'content:upgrade' %}">
-            {% endif %}
-                <div class="content_inf">
-                    {% if object.title|length > 35 %}
-                    <h1>{{ object.title|upper|slice:":35" }}...</h1>
-                    {% else %}
-                    <h1>{{ object.title|upper }}</h1>
+                {% else %}
+                <a href="{% url 'content:upgrade' %}">
                     {% endif %}
-                    <h1 style="color: #E4C208;">PREMIUM</h1>
-                </div>
-                <hr>
-                <div>
-                    {% if not user.is_upgraded %}
-                    <h2>UPGRADE YOUR PROFILE TO LOOK THROW THE INFORMATION</h2>
-                    {% else %}
-                    <p>symbols: {{ object.content|length }}</p>
-                    <p>view: {{ object.views }}</p>
-                    {% endif %}
-                </div>
+                    <div class="content_inf">
+                        {% if object.title|length > 35 %}
+                        <h1>{{ object.title|upper|slice:":35" }}...</h1>
+                        {% else %}
+                        <h1>{{ object.title|upper }}</h1>
+                        {% endif %}
+                        <h1 style="color: #E4C208;">PREMIUM</h1>
+                    </div>
+                    <hr>
+                    <div>
+                        {% if not user.is_upgraded %}
+                        <h2>UPGRADE YOUR PROFILE TO LOOK THROW THE INFORMATION</h2>
+                        {% else %}
+                        <p>symbols: {{ object.content|length }}</p>
+                        <p>view: {{ object.views }}</p>
+                        {% endif %}
+                    </div>
+                </a>
             </a>
         </div>
         <div class="user_content_block_premium">
@@ -105,7 +106,7 @@
                     <p>Posts: {{ object.owner.content_set.count }}</p>
                 </div>
             </div>
-            <a href="">PROFILE</a>
+            <a href="{% url 'users:user_detail' object.owner.pk %}">PROFILE</a>
         </div>
     </div>
     {% endif %}
