@@ -2,6 +2,8 @@ from django.db import models
 
 from users.models import User
 
+NULLABLE = {'null': True, 'blank': True}
+
 
 class Content(models.Model):
     '''
@@ -12,7 +14,7 @@ class Content(models.Model):
         ('free', 'Free'),
     )
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='owner')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='owner', **NULLABLE)
     title = models.CharField(max_length=100, verbose_name='title', unique=True)
     content = models.TextField(verbose_name='content')
     type = models.CharField(max_length=7, choices=TYPE_CHOICES, verbose_name='type')
