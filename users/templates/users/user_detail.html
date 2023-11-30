@@ -1,0 +1,75 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+{% include 'content/includes/inc_header.html' %}
+<div id="wrapper">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li
+                {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="profile">
+        <h1 id="profile_nickname">{{ object.nickname }}</h1>
+        <div class="profile_inf">
+            <div class="profile_about">
+                <h1>ABOUT</h1>
+                <p>
+                    {% if not object.about %}
+                    IT'S A SECRET :)
+                    {% else %}
+                    {{ object.about }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="profile_main_inf">
+                <div class="user_inf_block_first">
+                        <span class="circle-image-profile">
+                            <img src="{{ object.image.path|mediapath }}" width="200">
+                        </span>
+                    <div class="user_profile_inf">
+                        <h2>{{ object.nickname }}</h2>
+                        <p>Subscribers: {{ object.subscribers }}</p>
+                        <p>Posts: {{ object.content_set.count }}</p>
+                    </div>
+                </div>
+                <div class="user_inf_block_second">
+                    {% if user.pk == object.pk %}
+                    <h1>UPGRADE YOUR PROFILE</h1>
+                    <p>
+                        Update your account to tell the world a little bit about yourself!
+                        <br><br>
+                        Also, you can update your nickname and your profile imagae!
+                    </p>
+                    <br>
+                    <a href="{% url 'users:user_update' object.pk %}">UPGRADE</a>
+                    {% else %}
+                    <h1>SUBSCRIPTION</h1>
+                    <p>
+                        Subscribe to be notified when a user posts! Soon you will be able to receive notifications to
+                        your email. Stay tuned for updates!
+                    </p>
+                    <br>
+                    <a href="">SUBSCRIBE</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if user.pk == object.pk %}
+    <hr>
+    <div class="profile_operaion">
+        <div class="publications">
+            <a href="{% url 'content:user_content_list' user.pk %}" id="my_publications">MY PUBLICATIONS</a>
+            <a href="{% url 'content:content_create' %}" id="add_publications">ADD PUBLICATIONS</a>
+        </div>
+        <a href="{% url 'users:user_delete' object.pk %}" id="delete_account">DELETE AN ACCOUNT</a>
+    </div>
+    {% endif %}
+</div>
+{% include 'content/includes/inc_footer.html' %}
+{% endblock %}
