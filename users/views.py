@@ -1,10 +1,12 @@
+from django.contrib import messages
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 
-from users.forms import UserRegisterForm, ConfirmationCodeForm, AuthorizationForm
+from users.forms import UserRegisterForm, ConfirmationCodeForm, AuthorizationForm, UserUpdateForm, UserDeleteAccountForm
 from users.models import User
 from users.services import code_generation
 
@@ -112,3 +114,59 @@ class AuthorizationView(generic.View):
                 'form': form,
             }
         )
+
+
+class UserDetailView(LoginRequiredMixin, generic.DetailView):
+    '''
+    User detail view
+    '''
+    model = User
+    context_object_name = 'object'
+
+    def get_context_data(self, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
+        context['title'] = f'{self.object.nickname}'
+
+        return context
+
+
+class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    '''
+    User update view
+    '''
+    model = User
+    form_class = UserUpdateForm
+
+    def get_success_url(self) -> str:
+        messages.success(self.request, 'You have successfully updated your account!')
+        return reverse('users:user_detail', kwargs={'pk': self.object.pk})
+
+    def test_func(self) -> bool:
+        return self.request.user == self.get_object()
+
+    def handle_no_permission(self):
+        return redirect(reverse('content:content_list'))
+
+
+class UserDeleteAccountView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    '''
+    User delete account view
+    '''
+    model = User
+    form_class = UserDeleteAccountForm
+
+    def get_context_data(self, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
+        context['title'] = f'Delete {self.object.nickname}'
+
+        return context
+
+    def get_success_url(self) -> str:
+        messages.success(self.request, 'You have successfully deleted your account!')
+        return reverse('content:index')
+
+    def test_func(self) -> bool:
+        return self.request.user == self.get_object()
+
+    def handle_no_permission(self):
+        return redirect(reverse('content:content_list'))
