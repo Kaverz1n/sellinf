@@ -1,0 +1,28 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% block content %}
+{% include 'content/includes/inc_header.html' %}
+<div id="wrapper">
+    <h1 class="publish_content_h1">MY PUBLICATIONS</h1>
+    {% for object in object_list %}
+    <div class="content">
+        <div class="publish_content_block">
+            <div>
+                <h1>{{ object.title }}</h1>
+                {% if object.type == 'free' %}
+                <h1 style="color: #419240;">{{ object.type }}</h1>
+                {% else %}
+                <h1 style="color: #E4C208;">{{ object.type }}</h1>
+                {% endif %}
+            </div>
+            <hr>
+            <div>
+                <p>symbols: {{ object.content|length }}</p>
+                <p>view: {{ object.views }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% include 'content/includes/inc_footer.html' %}
+{% endblock %}
