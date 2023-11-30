@@ -1,0 +1,16 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+{% include 'content/includes/inc_header.html' %}
+<div id="wrapper">
+    <form method="post" class="user_delete_form" enctype="multipart/form-data">
+        <h1>DELETING</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>Enter: I want to delete my account!</p>
+        <button type="submit" class="delete_btn">DELETE</button>
+    </form>
+</div>
+{% include 'content/includes/inc_footer.html' %}
+{% endblock %}
