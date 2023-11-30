@@ -25,8 +25,8 @@ class CheckoutSessionView(LoginRequiredMixin, UserPassesTestMixin, generic.View)
             line_items=[
                 {
                     'price_data': {
-                        'currency': 'rub',
-                        'unit_amount': 999 * 100,
+                        'currency': 'usd',
+                        'unit_amount': 999,
                         'product_data': {
                             'name': 'SELLINF SUBSCRIPTION',
                             'description': 'Upgrading user account to view premium content',
