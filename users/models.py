@@ -13,7 +13,7 @@ class User(AbstractUser):
     username = None
     phone = models.CharField(max_length=15, unique=True, verbose_name='phone')
     nickname = models.CharField(max_length=30, unique=True, verbose_name='nickname')
-    about = models.CharField(max_length=500, verbose_name='about', **NULLABLE)
+    about = models.TextField(max_length=850, verbose_name='about', **NULLABLE)
     image = models.ImageField(upload_to='profile_images/', default='profile_images/default.png', verbose_name='image')
     is_upgraded = models.BooleanField(default=False, verbose_name='is_upgraded')
     subscribers = models.IntegerField(default=0, verbose_name='subscribers')
