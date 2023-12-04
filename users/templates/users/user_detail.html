@@ -60,7 +60,12 @@
             </div>
         </div>
     </div>
-    {% if user.pk == object.pk %}
+    {% if user|has_group:"moderator" and user.pk == object.pk %}
+    <hr>
+    <div class="profile_operaion">
+        <a href="{% url 'content:moderator_content_list' %}" id="check_publications">CHECK PUBLICATIONS</a>
+    </div>
+    {% elif user.pk == object.pk %}
     <hr>
     <div class="profile_operaion">
         <div class="publications">
