@@ -2,6 +2,7 @@ import stripe
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import Group
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -76,6 +77,7 @@ class SuccessTemplateView(LoginRequiredMixin, generic.TemplateView):
     def get(self, request, *args, **kwargs):
         user = self.request.user
         user.is_upgraded = True
+        user.groups.add(Group.objects.get(name='upgraded_user'))
         user.save()
 
         messages.success(self.request, 'You have successfully upgraded your account!')
