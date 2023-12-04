@@ -5,10 +5,10 @@
 {% include 'content/includes/inc_header.html' %}
 <div id="wrapper">
     <form method="post" class="content_create_form" enctype="multipart/form-data">
-        <h1>CREATE CONTENT</h1>
+        <h1>{{ text }}</h1>
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">CREATE</button>
+        <button type="submit">{{ button_text }}</button>
     </form>
 </div>
 {% include 'content/includes/inc_footer.html' %}
