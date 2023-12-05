@@ -3,11 +3,11 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.views import generic
 
 from users.forms import UserRegisterForm, ConfirmationCodeForm, AuthorizationForm, UserUpdateForm, UserDeleteAccountForm
-from users.models import User
+from users.models import User, Subscription
 from users.services import code_generation
 
 
@@ -125,9 +125,40 @@ class UserDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
+        is_subscribed = Subscription.objects.filter(user_pk=self.object.id, subscriber=self.request.user).exists()
+
         context['title'] = f'{self.object.nickname}'
+        context['is_subscribed'] = is_subscribed
 
         return context
+
+
+class Subscribe(LoginRequiredMixin, UserPassesTestMixin, generic.View):
+    '''
+    Class for subscribe on user
+    '''
+
+    def get(self, request, *args, **kwargs) -> HttpResponse:
+        user = User.objects.get(pk=self.kwargs['pk'])
+
+        if kwargs['status'] == 'subscribe':
+            Subscription.objects.create(user_pk=self.kwargs['pk'], subscriber=self.request.user)
+            user.subscribers += 1
+            user.save()
+
+            return redirect(reverse('users:user_detail', kwargs={'pk': self.kwargs['pk']}))
+
+        Subscription.objects.filter(user_pk=self.kwargs['pk'], subscriber=self.request.user).delete()
+        user.subscribers -= 1
+        user.save()
+
+        return redirect(reverse('users:user_detail', kwargs={'pk': self.kwargs['pk']}))
+
+    def test_func(self) -> bool:
+        return self.request.user.is_upgraded
+
+    def handel_no_permission(self) -> HttpResponse:
+        return redirect(reverse('content:upgrade'))
 
 
 class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
@@ -144,7 +175,7 @@ class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView
     def test_func(self) -> bool:
         return self.request.user == self.get_object()
 
-    def handle_no_permission(self):
+    def handle_no_permission(self) -> HttpResponse:
         return redirect(reverse('content:content_list'))
 
 
@@ -168,5 +199,5 @@ class UserDeleteAccountView(LoginRequiredMixin, UserPassesTestMixin, generic.Del
     def test_func(self) -> bool:
         return self.request.user == self.get_object()
 
-    def handle_no_permission(self):
+    def handle_no_permission(self) -> HttpResponse:
         return redirect(reverse('content:content_list'))
