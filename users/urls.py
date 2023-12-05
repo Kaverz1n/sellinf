@@ -4,7 +4,7 @@ from django.urls import path
 from users.apps import UsersConfig
 from users.views import (
     UserRegisterView, ConfirmationCodeView, AuthorizationView, UserDetailView, UserUpdateView,
-    UserDeleteAccountView
+    UserDeleteAccountView, Subscribe
 )
 
 app_name = UsersConfig.name
@@ -17,4 +17,5 @@ urlpatterns = [
     path('user/<int:pk>/update/', UserUpdateView.as_view(), name='user_update'),
     path('user/<int:pk>/delete_account/', UserDeleteAccountView.as_view(), name='user_delete'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('subscription/<int:pk>/<str:status>/', Subscribe.as_view(), name='subscribe')
 ]
