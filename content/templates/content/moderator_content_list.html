@@ -9,7 +9,11 @@
         <a href="{% url 'content:content_detail' object.pk %}" >
             <div class="publish_content_block">
                 <div>
-                    <h1>{{ object.title }}</h1>
+                    {% if object.title|length > 35 %}
+                    <h1>{{ object.title|upper|slice:":35" }}...</h1>
+                    {% else %}
+                    <h1>{{ object.title|upper }}</h1>
+                    {% endif %}
                     {% if object.type == 'free' %}
                     <h1 style="color: #419240;">{{ object.type }}</h1>
                     {% else %}
@@ -25,6 +29,26 @@
         </a>
     </div>
     {% endfor %}
+     {% if page_obj %}
+    <div class="pagination">
+        <hr>
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
 </div>
 {% include 'content/includes/inc_footer.html' %}
 {% endblock %}
