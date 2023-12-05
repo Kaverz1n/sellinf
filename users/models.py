@@ -21,7 +21,7 @@ class User(AbstractUser):
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = []
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.phone}'
 
     def save(self, *args, **kwargs) -> None:
@@ -47,9 +47,24 @@ class ConfirmationCode(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, verbose_name='user')
     code = models.IntegerField(unique=True, verbose_name='code')
 
-    def str_code(self) -> str:
+    def __str__(self) -> str:
         return f'{self.user.phone} - {self.code}'
 
     class Meta:
         verbose_name = 'confirmation code'
         verbose_name_plural = 'confirmation codes'
+
+
+class Subscription(models.Model):
+    '''
+    Subscription model
+    '''
+    user_pk = models.IntegerField(unique=True, verbose_name='user_pk')
+    subscriber = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='subscriber')
+
+    def __str__(self) -> str:
+        return f'{self.user_pk} - {self.subscriber.phone}'
+
+    class Meta:
+        verbose_name = 'subscription'
+        verbose_name_plural = 'subscriptions'
