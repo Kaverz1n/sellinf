@@ -9,8 +9,8 @@
         <p>COPYRIGHT© 2023 SELLINF. ALL RIGHTS RESERVED.</p>
         <img src="{% static 'images/cloud.png' %}" alt="" height="50px" style="transform: scale(-1, 1);">
         <ul>
-            <li><a href="">PROFILE</a></li>
-            <li><a href="{% url 'content:upgrade' %}">UPGRADE</a></li>
+            <li><a href="{% url 'users:user_detail' user.pk %}">PROFILE</a></li>
+            <li><a href="{% url 'users:logout' %}">EXIT</a></li>
         </ul>
     </div>
 </footer>
