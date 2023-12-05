@@ -11,7 +11,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options) -> None:
         try:
             user = User.objects.create(
-                phone='+9999',
+                phone='+9',
                 nickname='Admin',
                 is_upgraded=True,
                 is_staff=True,
