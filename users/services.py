@@ -1,6 +1,6 @@
-import random
-
 import django
+
+import random
 
 from users.models import ConfirmationCode, User
 from users.tasks import send_confirmation_code
