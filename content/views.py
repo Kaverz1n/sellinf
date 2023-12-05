@@ -1,3 +1,6 @@
+from content.forms import SearchForm, ContentForm
+from content.models import Content
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from django.db.models import QuerySet, Q
@@ -5,9 +8,6 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views import generic
-
-from content.forms import SearchForm, ContentForm
-from content.models import Content
 
 
 class IndexView(UserPassesTestMixin, generic.TemplateView):
@@ -40,7 +40,7 @@ class ContentCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Cre
 
             return super().form_valid(form)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         context['title'] = 'Create new content'
         context['text'] = 'CREATING'
@@ -118,11 +118,12 @@ class FoundContentListView(ContentListView):
         return context
 
 
-class UserContentListView(UserPassesTestMixin, ContentListView):
+class UserContentListView(UserPassesTestMixin, PermissionRequiredMixin, ContentListView):
     '''
     User content list view
     '''
     template_name = 'content/user_content_list.html'
+    permission_required = 'content.add_content'
     paginate_by = 5
 
     def get_queryset(self, *args, **kwargs) -> QuerySet:
@@ -204,9 +205,9 @@ class ContentDetailView(LoginRequiredMixin, generic.DetailView):
 
         return self.object
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
-        context['title'] = self.object.title
+        context['title'] = f'{self.object.title}'
 
         return context
 

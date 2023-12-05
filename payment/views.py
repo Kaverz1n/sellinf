@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.views import generic
 
 from payment.models import Payment
+
 from sellinf import settings
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -59,7 +60,6 @@ class SuccessTemplateView(LoginRequiredMixin, generic.TemplateView):
     '''
     Success view
     '''
-    extra_context = {'title': 'Success'}
 
     def dispatch(self, request, *args, **kwargs):
         try:
@@ -89,7 +89,6 @@ class CancelTemplateView(LoginRequiredMixin, generic.TemplateView):
     '''
     Success view
     '''
-    extra_context = {'title': 'Cancel'}
 
     def dispatch(self, request, *args, **kwargs):
         try:
