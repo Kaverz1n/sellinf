@@ -54,7 +54,11 @@
                         your email. Stay tuned for updates!
                     </p>
                     <br>
-                    <a href="">SUBSCRIBE</a>
+                    {% if is_subscribed %}
+                    <a href="{% url 'users:subscribe' object.pk 'unsubscribe' %}" id="unsubscribe">UNSUBSCRIBE</a>
+                    {% else %}
+                    <a href="{% url 'users:subscribe' object.pk 'subscribe' %}" id="subscribe">SUBSCRIBE</a>
+                    {% endif %}
                     {% endif %}
                 </div>
             </div>
