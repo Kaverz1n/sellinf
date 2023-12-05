@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from users.models import User, ConfirmationCode
+from users.models import User, ConfirmationCode, Subscription
 
 
 @admin.register(User)
@@ -16,3 +16,9 @@ class ConfirmationCodeAdmin(admin.ModelAdmin):
 
     def display_user_phone(self, obj):
         return obj.user.phone
+
+
+@admin.register(Subscription)
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'user_pk', 'subscriber',)
+    list_filter = ('user_pk',)
