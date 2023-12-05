@@ -52,7 +52,7 @@ class ConfirmationCodeForm(forms.Form):
     '''
     code = forms.IntegerField(widget=TextInput(attrs={'placeholder': 'Enter confirm code...', 'step': 1}))
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(ConfirmationCodeForm, self).__init__(*args, **kwargs)
         self.fields['code'].label = ''
         self.user_id = kwargs.get('user_id')
@@ -73,7 +73,7 @@ class AuthorizationForm(forms.Form):
     '''
     phone = forms.CharField(max_length=15, widget=TextInput(attrs={'placeholder': 'Enter your phone...'}))
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(AuthorizationForm, self).__init__(*args, **kwargs)
         self.fields['phone'].label = ''
 
@@ -97,7 +97,7 @@ class UserUpdateForm(forms.ModelForm):
     Form to update user
     '''
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(UserUpdateForm, self).__init__(*args, **kwargs)
         self.fields['nickname'].label = ''
         self.fields['nickname'].widget.attrs['placeholder'] = 'Enter your nickname...'
@@ -116,7 +116,7 @@ class UserDeleteAccountForm(forms.Form):
     '''
     confirm_delete = forms.CharField(max_length=30, widget=TextInput(attrs={'placeholder': 'Are you sure...?'}))
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         super(UserDeleteAccountForm, self).__init__(*args, **kwargs)
         self.fields['confirm_delete'].label = ''
 

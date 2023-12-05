@@ -1,6 +1,6 @@
-from django import forms
-
 from content.models import Content
+
+from django import forms
 
 
 class SearchForm(forms.Form):
@@ -18,6 +18,7 @@ class ContentForm(forms.ModelForm):
     '''
     Form to create content
     '''
+
     def __init__(self, *args, **kwargs) -> None:
         super(ContentForm, self).__init__(*args, **kwargs)
         self.fields['title'].label = ''
@@ -26,4 +27,8 @@ class ContentForm(forms.ModelForm):
 
     class Meta:
         model = Content
-        fields = ['title', 'content', 'type']
+        fields = (
+            'title',
+            'content',
+            'type',
+        )
