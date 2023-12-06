@@ -1,6 +1,5 @@
 {% extends 'content/base.html' %}
 {% load static %}
-{% load custom_tags %}
 {% block content %}
 {% include 'content/includes/inc_header.html' %}
 <div id="wrapper">
@@ -48,7 +47,7 @@
         <div class="user_content_block">
             <div class="user_content_inf">
                     <span class="circle-image">
-                        <img src="{{ object.owner.image|mediapath }}">
+                        <img src="{{ object.owner.image.url }}">
                     </span>
                 <div class="user_inf">
                     {% if object.owner.nickname|length > 6 %}
@@ -94,7 +93,7 @@
         <div class="user_content_block_premium">
             <div class="user_content_inf">
                     <span class="circle-image">
-                        <img src="{{ object.owner.image|mediapath }}">
+                        <img src="{{ object.owner.image.url }}">
                     </span>
                 <div class="user_inf">
                     {% if object.owner.nickname|length > 6 %}
