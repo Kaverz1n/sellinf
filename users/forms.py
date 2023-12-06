@@ -124,6 +124,6 @@ class UserDeleteAccountForm(forms.Form):
         confirm_delete = self.cleaned_data['confirm_delete']
 
         if confirm_delete != 'I want to delete my account!':
-            raise forms.ValidationError('That\' not right!')
+            raise forms.ValidationError('That\'s not right!')
 
         return confirm_delete
