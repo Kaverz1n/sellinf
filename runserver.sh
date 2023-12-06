@@ -1,3 +1,5 @@
+#!/bin/sh
+
 python manage.py migrate
 python manage.py fill
 python manage.py csu
