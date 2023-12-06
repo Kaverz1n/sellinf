@@ -157,7 +157,7 @@ class Subscribe(LoginRequiredMixin, UserPassesTestMixin, generic.View):
     def test_func(self) -> bool:
         return self.request.user.is_upgraded
 
-    def handel_no_permission(self) -> HttpResponse:
+    def handle_no_permission(self) -> HttpResponse:
         return redirect(reverse('content:upgrade'))
 
 
