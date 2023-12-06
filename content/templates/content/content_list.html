@@ -1,0 +1,135 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% block content %}
+{% include 'content/includes/inc_header.html' %}
+<div id="wrapper">
+    <div class="sellinf_content_image">
+        <img src="{% static 'images/sellinf_blue.png' %}" alt="" height="75px" id="blue_sellinf">
+    </div>
+    <div class="sellinf_content_h1">
+        <h1>SINGLE PLATFORM FOR ACCESS TO PAID AND FREE INFORMATION</h1>
+    </div>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li
+                {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form method="post" class="search_form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">SEARCH</button>
+    </form>
+    <hr>
+    {% for object in object_list %}
+    {% if object.type == 'free' %}
+    <div class="content">
+        <div class="content_block">
+            <a href="{% url 'content:content_detail' object.pk %}">
+                <div class="content_inf">
+                    {% if object.title|length > 35 %}
+                    <h1>{{ object.title|upper|slice:":35" }}...</h1>
+                    {% else %}
+                    <h1>{{ object.title|upper }}</h1>
+                    {% endif %}
+                    <h1 style="color: #419240;">FREE</h1>
+                </div>
+                <hr>
+                <div>
+                    <p>symbols: {{ object.content|length }}</p>
+                    <p>view: {{ object.views }}</p>
+                </div>
+            </a>
+        </div>
+        <div class="user_content_block">
+            <div class="user_content_inf">
+                    <span class="circle-image">
+                        <img src="{{ object.owner.image.url }}">
+                    </span>
+                <div class="user_inf">
+                    {% if object.owner.nickname|length > 6 %}
+                    <h2>{{ object.owner.nickname|slice:"6" }}*</h2>
+                    {% else %}
+                    <h2>{{ object.owner.nickname }}</h2>
+                    {% endif %}
+                    <p>Subs: {{ object.owner.subscribers }}</p>
+                    <p>Posts: {{ object.owner.content_set.count }}</p>
+                </div>
+            </div>
+            <a href="{% url 'users:user_detail' object.owner.pk %}">PROFILE</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="content">
+        <div class="content_block_premium">
+            {% if user.is_upgraded %}
+            <a href="{% url 'content:content_detail' object.pk %}">
+                {% else %}
+                <a href="{% url 'content:upgrade' %}">
+                    {% endif %}
+                    <div class="content_inf">
+                        {% if object.title|length > 35 %}
+                        <h1>{{ object.title|upper|slice:":35" }}...</h1>
+                        {% else %}
+                        <h1>{{ object.title|upper }}</h1>
+                        {% endif %}
+                        <h1 style="color: #E4C208;">PREMIUM</h1>
+                    </div>
+                    <hr>
+                    <div>
+                        {% if not user.is_upgraded %}
+                        <h2>UPGRADE YOUR PROFILE TO LOOK THROW THE INFORMATION</h2>
+                        {% else %}
+                        <p>symbols: {{ object.content|length }}</p>
+                        <p>view: {{ object.views }}</p>
+                        {% endif %}
+                    </div>
+                </a>
+            </a>
+        </div>
+        <div class="user_content_block_premium">
+            <div class="user_content_inf">
+                    <span class="circle-image">
+                        <img src="{{ object.owner.image.url }}">
+                    </span>
+                <div class="user_inf">
+                    {% if object.owner.nickname|length > 6 %}
+                    <h2>{{ object.owner.nickname|slice:"6" }}*</h2>
+                    {% else %}
+                    <h2>{{ object.owner.nickname }}</h2>
+                    {% endif %}
+                    <p>Subs: {{ object.owner.subscribers }}</p>
+                    <p>Posts: {{ object.owner.content_set.count }}</p>
+                </div>
+            </div>
+            <a href="{% url 'users:user_detail' object.owner.pk %}">PROFILE</a>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% if page_obj %}
+    <div class="pagination">
+        <hr>
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
+</div>
+{% include 'content/includes/inc_footer.html' %}
+{% endblock %}
