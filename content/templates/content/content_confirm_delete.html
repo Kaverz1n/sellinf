@@ -1,0 +1,20 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% block content %}
+{% include 'content/includes/inc_header.html' %}
+<div id="wrapper">
+    <div class="deleting" style="margin-bottom: 250px">
+        <form action="" method="post">
+            {% csrf_token %}
+            <h1>Are you sure, that you want to delete "{{ object.title }}"?</h1>
+            <div class="delete_buttons">
+                <button type="submit" id="delete">DELETE</button>
+                <a href="{% url 'content:content_detail' object.pk %}">
+                    <button id="back" type="button">BACK</button>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% include 'content/includes/inc_footer.html' %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+{% include 'content/includes/inc_header.html' %}
+<div id="wrapper">
+    <form method="post" class="user_update_form" enctype="multipart/form-data">
+        <h1>UPGRADING PROFILE</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">UPDATE</button>
+    </form>
+</div>
+{% include 'content/includes/inc_footer.html' %}
+{% endblock %}

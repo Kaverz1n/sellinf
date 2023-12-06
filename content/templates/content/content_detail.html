@@ -1,0 +1,45 @@
+{% extends 'content/base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+{% include 'content/includes/inc_header.html' %}
+<div id="wrapper">
+    <div class="content_detail_content">
+        <h1 class="content_detail_title">{{ object.title|upper }}</h1>
+        <hr id="under_title_line">
+        <p>
+            {{ object.content }}
+        </p>
+        <hr>
+        <div class="content_detail_inf">
+            <div>
+                <h2>Type: {{ object.type }}</h2>
+                <a href="{% url 'users:user_detail' object.owner.pk %}"><h2>Author: {{ object.owner.nickname }}</h2></a>
+            </div>
+            <div>
+                <h2>Date: {{ object.updated_at }}</h2>
+                <h2>Views: {{ object.views }}</h2>
+            </div>
+        </div>
+    </div>
+    {% if object.owner == user %}
+    <hr>
+    <div class="content_operation">
+        <div class="publications">
+            <a href="{% url 'content:content_update' object.pk %}" class="edit_content">EDIT CONTENT</a>
+        </div>
+        <a href="{% url 'content:content_delete' object.pk %}" class="delete_content">DELETE CONTENT</a>
+    </div>
+    {% endif %}
+    {% if user|has_group:"moderator" and not object.is_published %}
+    <hr>
+    <div class="content_operation">
+        <div class="publications">
+            <a href="{% url 'content:content_publish_status' object.pk %}" class="publish_content">PUBLISH CONTENT</a>
+        </div>
+        <a href="{% url 'content:content_delete' object.pk %}" class="delete_content">DELETE CONTENT</a>
+    </div>
+    {% endif %}
+</div>
+{% include 'content/includes/inc_footer.html' %}
+{% endblock %}
