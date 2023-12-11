@@ -11,5 +11,5 @@ class Command(BaseCommand):
         try:
             ContentType.objects.all().delete()
             call_command('loaddata', 'database_data.json')
-        except:
+        except Exception:
             self.stderr.write('Error loading database data')
