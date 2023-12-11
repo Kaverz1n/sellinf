@@ -71,7 +71,7 @@ class SuccessTemplateView(LoginRequiredMixin, generic.TemplateView):
                 return redirect(reverse('payment:cancel'))
 
             return super().dispatch(request, *args, **kwargs)
-        except:
+        except Exception:
             return redirect(reverse('content:upgrade'))
 
     def get(self, request, *args, **kwargs):
@@ -100,7 +100,7 @@ class CancelTemplateView(LoginRequiredMixin, generic.TemplateView):
                 return redirect(reverse('content:content_list'))
 
             return super().dispatch(request, *args, **kwargs)
-        except:
+        except Exception:
             return redirect(reverse('content:upgrade'))
 
     def get(self, request, *args, **kwargs):

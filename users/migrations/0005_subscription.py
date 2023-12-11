@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('users', '0004_alter_user_about'),
     ]
@@ -17,7 +16,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('user_pk', models.IntegerField(unique=True, verbose_name='user_pk')),
-                ('subscriber', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='subscriber')),
+                ('subscriber',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL,
+                                   verbose_name='subscriber')),
             ],
             options={
                 'verbose_name': 'subscription',
