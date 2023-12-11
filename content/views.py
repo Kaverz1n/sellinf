@@ -142,7 +142,7 @@ class UserContentListView(UserPassesTestMixin, PermissionRequiredMixin, ContentL
         pass
 
     def test_func(self) -> bool:
-        return self.request.user.is_upgraded
+        return not self.request.user.is_anonymous and self.request.user.is_upgraded
 
     def handle_no_permission(self) -> HttpResponse:
         return redirect(reverse('content:upgrade'))
