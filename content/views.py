@@ -162,7 +162,7 @@ class ModeratorContentListView(UserPassesTestMixin, ContentListView):
 
     def get_context_data(self, *args, **kwargs) -> dict:
         context = super().get_context_data(*args, **kwargs)
-        context['title'] = f'Checking content'
+        context['title'] = 'Checking content'
         context['form'] = ''
 
         return context
